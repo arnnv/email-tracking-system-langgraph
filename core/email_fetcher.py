@@ -1,6 +1,7 @@
 import imaplib
 import email
 from email.header import decode_header
+from email.message import Message  # Added this import for type hinting
 import os
 from dotenv import load_dotenv
 from typing import Dict, List, Optional
@@ -30,14 +31,14 @@ def search_emails(mail: imaplib.IMAP4_SSL, criteria: str = "ALL") -> List[str]:
     status, messages = mail.uid("search", None, criteria)
     return messages[0].split() if status == "OK" else []
 
-def decode_email_subject(msg: email.message.Message) -> str:
+def decode_email_subject(msg: Message) -> str:
     """Decode email subject to readable format."""
     subject, encoding = decode_header(msg["Subject"])[0]
     if isinstance(subject, bytes):
         subject = subject.decode(encoding if encoding else "utf-8")
     return subject
 
-def get_email_body(msg: email.message.Message) -> str:
+def get_email_body(msg: Message) -> str:
     """Extract the email body text."""
     if msg.is_multipart():
         for part in msg.walk():
