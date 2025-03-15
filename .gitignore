@@ -1,4 +1,5 @@
 .ruff_cache/
+*.db
 
 # Byte-compiled / optimized / DLL files
 __pycache__/
