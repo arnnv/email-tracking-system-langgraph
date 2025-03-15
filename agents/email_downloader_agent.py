@@ -14,7 +14,7 @@ IMAP_SERVER = os.getenv("IMAP_SERVER")
 EMAIL = os.getenv("EMAIL")
 PASSWORD = os.getenv("PASSWORD")
 
-def email_fetcher_agent(count: int = 10) -> None:
+def email_downloader_agent(count: int = 10) -> None:
     """
     Fetches emails from the specified IMAP server and stores them in the database if they do not already exist.
 
@@ -51,4 +51,4 @@ def email_fetcher_agent(count: int = 10) -> None:
         conn.close()
 
 if __name__ == "__main__":
-    email_fetcher_agent()
+    email_downloader_agent()
