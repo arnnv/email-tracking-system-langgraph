@@ -5,6 +5,7 @@ from email.message import Message  # Added this import for type hinting
 import os
 from dotenv import load_dotenv
 from typing import Dict, List, Optional
+from email.utils import parseaddr  # Added this import to parse email addresses
 
 load_dotenv()
 
@@ -64,10 +65,12 @@ def extract_email_details(mail: imaplib.IMAP4_SSL, email_uid: str) -> Dict[str, 
             msg = email.message_from_bytes(response_part[1])
             
             # Extract key information
+            from_name, from_email = parseaddr(msg.get("From", ""))
             return {
                 "uid": email_uid.decode() if isinstance(email_uid, bytes) else email_uid,
                 "subject": decode_email_subject(msg),
-                "from": msg.get("From", ""),
+                "from_name": from_name,
+                "from_email": from_email,
                 "date": msg.get("Date", ""),
                 "body": get_email_body(msg)
             }
@@ -120,7 +123,8 @@ if __name__ == "__main__":
     for i, email_data in enumerate(recent_emails, 1):
         print(f"\n--- Email {i} ---")
         print(f"UID: {email_data.get('uid', 'Unknown')}")
-        print(f"From: {email_data.get('from', 'Unknown')}")
+        print(f"From Name: {email_data.get('from_name', 'Unknown')}")
+        print(f"From Email: {email_data.get('from_email', 'Unknown')}")
         print(f"Subject: {email_data.get('subject', 'No subject')}")
         print(f"Date: {email_data.get('date', 'Unknown')}")
         print(f"\nPreview: {email_data.get('body', '').strip()[:500]}")  # Show only first 500 chars for preview
