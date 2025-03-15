@@ -32,7 +32,7 @@ def email_downloader_agent(count: int = 10) -> None:
     5. If the email does not exist, inserts the email details into the database.
     6. Commits the transaction and closes the database connection.
     """
-    emails = get_emails(IMAP_SERVER, EMAIL, PASSWORD)
+    emails = get_emails(IMAP_SERVER, EMAIL, PASSWORD, count=count)
 
     for email in emails:
         # pprint(email)
