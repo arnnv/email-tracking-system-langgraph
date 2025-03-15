@@ -9,6 +9,7 @@ def initialize_db():
         cursor.execute('''
             CREATE TABLE IF NOT EXISTS emails (
                 id TEXT PRIMARY KEY,
+                date TEXT NOT NULL,
                 email TEXT NOT NULL,
                 sender TEXT NOT NULL,
                 subject TEXT NOT NULL,
