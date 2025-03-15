@@ -10,8 +10,8 @@ def initialize_db():
             CREATE TABLE IF NOT EXISTS emails (
                 id TEXT PRIMARY KEY,
                 date TEXT NOT NULL,
-                email TEXT NOT NULL,
                 sender TEXT NOT NULL,
+                email TEXT NOT NULL,
                 subject TEXT NOT NULL,
                 body TEXT NOT NULL,
                 email_processed BOOLEAN NOT NULL CHECK (email_processed IN (0, 1))
