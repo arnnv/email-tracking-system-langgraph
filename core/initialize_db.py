@@ -14,7 +14,8 @@ def initialize_db():
                 email TEXT NOT NULL,
                 subject TEXT NOT NULL,
                 body TEXT NOT NULL,
-                email_processed BOOLEAN NOT NULL CHECK (email_processed IN (0, 1))
+                email_processed BOOLEAN NOT NULL CHECK (email_processed IN (0, 1)),
+                category TEXT DEFAULT NULL
             )
         ''')
 
