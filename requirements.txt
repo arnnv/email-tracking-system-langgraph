@@ -8,3 +8,4 @@ langgraph==0.3.11
 pandas==2.2.3
 python-dotenv==1.0.1
 typing_extensions==4.12.2
+openpyxl
