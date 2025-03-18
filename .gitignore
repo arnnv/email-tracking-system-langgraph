@@ -1,6 +1,7 @@
 .ruff_cache/
 *.db
 *.xlsx
+*.ipynb
 
 # Byte-compiled / optimized / DLL files
 __pycache__/
