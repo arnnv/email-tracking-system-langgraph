@@ -1,0 +1,24 @@
+Company: Google
+Position: Machine Learning Engineer
+
+Job Description:
+Google is seeking a talented Machine Learning Engineer to join our AI/ML team. The ideal candidate will work on cutting-edge machine learning models and help deploy them to production.
+
+Requirements:
+- Master's degree or PhD in Computer Science, Machine Learning, or a related field
+- 3+ years of experience with Python, TensorFlow, and PyTorch
+- Strong understanding of machine learning algorithms and deep learning frameworks
+- Experience with large language models and prompt engineering
+- Excellent problem-solving and communication skills
+
+Responsibilities:
+- Design, develop, and implement machine learning models
+- Collaborate with cross-functional teams to integrate ML solutions
+- Optimize model performance and scalability
+- Stay current with the latest advancements in ML/AI research
+- Participate in code reviews and technical discussions
+
+If you're passionate about AI and want to make an impact at scale, we'd love to hear from you. Apply now!
+
+Location: Remote with occasional travel to Mountain View, CA
+Salary: Competitive, based on experience 

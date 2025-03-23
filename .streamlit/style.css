@@ -1,0 +1,238 @@
+/* Custom styling for Email & Job Tracking System - Dark Theme */
+
+/* Import Roboto font from Google Fonts */
+@import url('https://fonts.googleapis.com/css2?family=Roboto:wght@300;400;500;700&display=swap');
+
+/* Global font settings */
+html, body, [class*="css"], .stApp, .stApp iframe, .stMarkdown, .stMarkdown p, button, span, div, h1, h2, h3, h4, h5, h6 {
+    font-family: 'Roboto', -apple-system, BlinkMacSystemFont, sans-serif !important;
+}
+
+/* Fix for border issues and visual glitches */
+.main .block-container {
+    padding-top: 2rem;
+}
+
+/* Main title */
+.main .block-container h1 {
+    color: #4F8BF9;
+    font-weight: 700;
+    padding-bottom: 20px;
+    border-bottom: 1px solid #333;
+    margin-bottom: 30px;
+}
+
+/* Section headers */
+.main .block-container h2 {
+    color: #6c9fff;
+    font-weight: 600;
+    margin-top: 20px;
+    margin-bottom: 20px;
+}
+
+/* Fix for dataframes */
+[data-testid="stDataFrame"] {
+    border-radius: 10px;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.3);
+    margin-bottom: 20px;
+    width: 100%;
+}
+
+/* Fix stDataFrame overflow issues */
+[data-testid="stDataFrame"] > div {
+    overflow-x: auto !important;
+}
+
+/* Button styling */
+.stButton > button {
+    font-weight: 600;
+    border-radius: 5px;
+    padding: 0.5rem 1rem;
+    transition: all 0.3s ease;
+    border: none !important;
+    box-shadow: none !important;
+}
+
+.stButton > button:hover {
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.3) !important;
+    transform: translateY(-2px);
+}
+
+.stButton > button:focus {
+    box-shadow: 0 0 0 0.2rem rgba(79, 139, 249, 0.25) !important;
+}
+
+/* Form styling */
+[data-testid="stForm"] {
+    background-color: #1E2129;
+    padding: 20px;
+    border-radius: 10px;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
+    border: 1px solid #333;
+}
+
+/* Metrics styling */
+[data-testid="stMetric"] {
+    background-color: #262A35;
+    padding: 15px;
+    border-radius: 8px;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
+    transition: all 0.3s ease;
+    border: 1px solid #333;
+}
+
+[data-testid="stMetric"]:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.3);
+}
+
+/* Metrics value color */
+[data-testid="stMetric"] > div:first-child {
+    color: #4F8BF9 !important;
+    font-weight: 600;
+}
+
+/* Sidebar styling */
+section[data-testid="stSidebar"] {
+    background-color: #161A23;
+    border-right: 1px solid #333;
+}
+
+section[data-testid="stSidebar"] .block-container {
+    padding-top: 2rem;
+}
+
+/* Status indicators styling */
+.success-text {
+    color: #00cc66;
+    font-weight: 600;
+}
+
+.warning-text {
+    color: #ffc107;
+    font-weight: 600;
+}
+
+.error-text {
+    color: #ff5f5f;
+    font-weight: 600;
+}
+
+/* Info boxes */
+.info-box {
+    background-color: #1c2536;
+    border-left: 4px solid #4F8BF9;
+    padding: 15px;
+    border-radius: 4px;
+    margin-bottom: 20px;
+}
+
+/* Success box */
+.success-box {
+    background-color: #1c2e23 !important;
+    padding: 20px;
+    border-radius: 5px;
+    margin-top: 20px;
+    border-left: 4px solid #00cc66;
+}
+
+/* Input fields */
+[data-testid="stTextInput"] > div > div > input {
+    background-color: #1A1E28;
+    color: #FAFAFA;
+    border-color: #333;
+}
+
+[data-testid="stTextArea"] > div > div > textarea {
+    background-color: #1A1E28;
+    color: #FAFAFA;
+    border-color: #333;
+}
+
+/* Selectbox */
+[data-testid="stSelectbox"] {
+    color: #FAFAFA;
+}
+
+/* Fix for selectbox glitches */
+div[data-baseweb="select"] > div {
+    background-color: #1A1E28 !important;
+    border-color: #333 !important;
+}
+
+/* Expander */
+[data-testid="stExpander"] {
+    background-color: #1E2129;
+    border-radius: 5px;
+    border: 1px solid #333;
+}
+
+/* Progress bar */
+.stProgress > div > div > div > div {
+    background-color: #4F8BF9;
+}
+
+/* Tabs */
+.stTabs [data-baseweb="tab-list"] {
+    gap: 8px;
+}
+
+.stTabs [data-baseweb="tab"] {
+    background-color: #262A35;
+    border-radius: 4px 4px 0 0;
+    padding: 10px 16px;
+    border: 1px solid #333;
+    border-bottom: none;
+}
+
+.stTabs [data-baseweb="tab"][aria-selected="true"] {
+    background-color: #1E2129;
+    border-bottom: 2px solid #4F8BF9;
+}
+
+/* Fix for notification banners */
+[data-testid="stNotificationContent"] {
+    border-radius: 5px;
+    border: 1px solid #333;
+}
+
+/* Workflow stages styling */
+.workflow-stage {
+    padding: 10px 15px;
+    border-radius: 5px;
+    margin-bottom: 10px;
+    border: 1px solid #333;
+    background-color: #262A35;
+    transition: all 0.3s ease;
+}
+
+.workflow-stage.active {
+    background-color: #1c2536;
+    border-color: #4F8BF9;
+    box-shadow: 0 0 10px rgba(79, 139, 249, 0.3);
+}
+
+.workflow-stage.completed {
+    background-color: #1c2e23;
+    border-color: #00cc66;
+}
+
+.workflow-icon {
+    margin-right: 8px;
+}
+
+/* Code blocks */
+code {
+    background-color: #1A1E28;
+    padding: 2px 5px;
+    border-radius: 3px;
+    border: 1px solid #333;
+    font-size: 85%;
+}
+
+/* Responsive adjustments */
+@media (max-width: 768px) {
+    .main .block-container {
+        padding: 1rem;
+    }
+} 
