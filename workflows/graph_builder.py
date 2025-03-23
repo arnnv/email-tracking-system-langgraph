@@ -1,8 +1,8 @@
 from langgraph.graph import END, StateGraph
 from models.email import State
 from processing.fetch_emails import fetch_unprocessed_emails
-from processing.summarize import summarize_emails
-from processing.classify import classify_emails
+from agents.summarization_agent import summarize_emails
+from agents.classification_agent import classify_emails
 from processing.process_all import process_all_categories
 
 def build_email_processing_graph(model=None, number_emails=5, monitor_func=None, debug_mode=False):

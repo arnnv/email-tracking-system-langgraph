@@ -11,12 +11,17 @@ A smart email processing system powered by LangGraph that automatically categori
 - **Concurrent Processing**: Processes different email categories in parallel
 - **Streamlit Dashboard**: Interactive web interface for monitoring and managing emails
 - **LangGraph Workflow**: Structured processing pipeline with visualization
+- **Agent-Based Architecture**: Modular design with specialized agents for different tasks
 
 ## Project Structure
 
 ```
 email-tracking-system/
-├── core/                 # Core system functionality
+├── agents/              # Specialized processing agents
+│   ├── classification_agent.py  # Email classification agent
+│   ├── summarization_agent.py   # Email summarization agent
+│   └── __init__.py
+├── core/                # Core system functionality
 │   ├── email_downloader.py  # Downloads emails from server
 │   ├── email_fetcher.py     # Fetches emails via IMAP
 │   ├── initialize_db.py     # Database initialization
@@ -26,14 +31,12 @@ email-tracking-system/
 │   ├── email.py         # Email and State type definitions
 │   └── __init__.py
 ├── processing/          # Email processing modules
-│   ├── classify.py        # Email classification
 │   ├── fetch_emails.py    # Fetches unprocessed emails
 │   ├── process_all.py     # Concurrent processing of all categories
 │   ├── process_general.py # General email processing
 │   ├── process_jobs.py    # Job email processing
 │   ├── process_spam.py    # Spam email processing
 │   ├── process_urgent.py  # Urgent email processing
-│   ├── summarize.py       # Email summarization
 │   └── __init__.py
 ├── prompts/             # LLM prompt templates
 │   ├── classification_prompt.py # Email classification prompts
@@ -59,6 +62,15 @@ email-tracking-system/
 └── README.md           # This file
 ```
 
+## Architecture
+
+The system follows an agent-based modular architecture:
+
+- **Agents**: Specialized components that perform specific tasks like summarization and classification
+- **Processing Modules**: Components that handle specific email categories
+- **Workflow**: LangGraph-powered pipeline that orchestrates the entire process
+- **Core Services**: Basic functionalities like email downloading and database operations
+
 ## Setup
 
 1. Clone the repository:
@@ -79,6 +91,7 @@ pip install -r requirements.txt
 IMAP_SERVER=imap.example.com
 EMAIL=your-email@example.com
 PASSWORD=your-password
+OLLAMA_BASE_URL=http://localhost:11434  # If using Ollama
 ```
 
 4. Run the application:
@@ -102,11 +115,11 @@ streamlit run app.py
 
 ## How It Works
 
-The system uses a LangGraph-powered workflow to process emails:
+The system uses a LangGraph-powered workflow with specialized agents:
 
 1. **Email Download**: Connects to your email server and downloads unread emails
-2. **Summarization**: Each email is summarized to extract key information 
-3. **Classification**: Emails are classified into one of four categories
+2. **Summarization Agent**: Processes and summarizes each email to extract key information 
+3. **Classification Agent**: Analyzes emails and assigns them to one of four categories
 4. **Parallel Processing**:
    - **Spam**: Marked as processed and categorized
    - **Job**: Details extracted and stored in jobs.xlsx
