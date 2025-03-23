@@ -1,9 +1,11 @@
 import sqlite3
 import os
+import sys
+import config
 
 def initialize_db():
-    if not os.path.exists('emails.db'):
-        conn = sqlite3.connect('emails.db')
+    if not os.path.exists(config.DB_PATH):
+        conn = sqlite3.connect(config.DB_PATH)
         cursor = conn.cursor()
 
         cursor.execute('''
@@ -14,6 +16,7 @@ def initialize_db():
                 email TEXT NOT NULL,
                 subject TEXT NOT NULL,
                 body TEXT NOT NULL,
+                summary TEXT DEFAULT NULL,
                 email_processed BOOLEAN NOT NULL CHECK (email_processed IN (0, 1)),
                 category TEXT DEFAULT NULL
             )
@@ -23,9 +26,11 @@ def initialize_db():
         conn.close()
 
 def connect_to_db():
-    if not os.path.exists('emails.db'):
+    if not os.path.exists(config.DB_PATH):
         initialize_db()
-    return sqlite3.connect('emails.db')
+    return sqlite3.connect(config.DB_PATH)
 
 if __name__ == "__main__":
+    # Add project root to sys.path to enable importing config when run directly
+    sys.path.append(os.path.abspath(os.path.join(os.path.dirname(__file__), "..")))
     initialize_db()

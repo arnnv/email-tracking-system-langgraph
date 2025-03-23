@@ -6,6 +6,8 @@ import os
 from dotenv import load_dotenv
 from typing import Dict, List, Optional
 from email.utils import parseaddr  # Added this import to parse email addresses
+import re
+import html.parser
 
 load_dotenv()
 
@@ -13,6 +15,47 @@ load_dotenv()
 IMAP_SERVER = os.getenv("IMAP_SERVER")
 EMAIL = os.getenv("EMAIL")
 PASSWORD = os.getenv("PASSWORD")
+
+# Create an HTML parser to strip HTML tags
+class HTMLStripper(html.parser.HTMLParser):
+    def __init__(self):
+        super().__init__()
+        self.reset()
+        self.strict = False
+        self.convert_charrefs = True
+        self.text = []
+    
+    def handle_data(self, data):
+        self.text.append(data)
+    
+    def get_text(self):
+        return ''.join(self.text)
+
+def strip_html_tags(html_text):
+    """
+    Strip HTML tags from text and decode HTML entities.
+    
+    Args:
+        html_text: HTML text to clean
+        
+    Returns:
+        Plain text with HTML tags removed and entities decoded
+    """
+    if not html_text:
+        return ""
+        
+    # Use the HTML parser to strip tags
+    stripper = HTMLStripper()
+    stripper.feed(html_text)
+    text = stripper.get_text()
+    
+    # Clean up extra whitespace
+    text = re.sub(r'\s+', ' ', text).strip()
+    
+    # Replace common email separators with newlines
+    text = re.sub(r'From:|To:|Subject:|Date:', '\n\\g<0>', text)
+    
+    return text
 
 def connect_to_email_server(imap_server: str, username: str, password: str) -> imaplib.IMAP4_SSL:
     """Connect to the email server and return the IMAP connection."""
@@ -40,18 +83,50 @@ def decode_email_subject(msg: Message) -> str:
     return subject
 
 def get_email_body(msg: Message) -> str:
-    """Extract the email body text."""
+    """
+    Extract the email body text, handling both plain text and HTML content.
+    If HTML content is found, it will be stripped of tags to extract the plain text.
+    """
+    text_content = ""
+    html_content = ""
+    
     if msg.is_multipart():
         for part in msg.walk():
             content_type = part.get_content_type()
             content_disposition = str(part.get("Content-Disposition"))
             
-            if "attachment" not in content_disposition and content_type == "text/plain":
+            # Skip attachments
+            if "attachment" in content_disposition:
+                continue
+                
+            # Try to get the plain text version first
+            if content_type == "text/plain":
                 body = part.get_payload(decode=True)
-                return body.decode() if body else ""
+                if body:
+                    text_content = body.decode(errors='replace')
+            
+            # Get HTML content as fallback
+            elif content_type == "text/html" and not text_content:
+                body = part.get_payload(decode=True)
+                if body:
+                    html_content = body.decode(errors='replace')
     else:
+        # Handle non-multipart messages
+        content_type = msg.get_content_type()
         body = msg.get_payload(decode=True)
-        return body.decode() if body else ""
+        
+        if body:
+            decoded_body = body.decode(errors='replace')
+            if content_type == "text/plain":
+                text_content = decoded_body
+            elif content_type == "text/html":
+                html_content = decoded_body
+    
+    # Prefer plain text, but fall back to stripped HTML
+    if text_content:
+        return text_content
+    elif html_content:
+        return strip_html_tags(html_content)
     
     return ""  # Return empty string if no suitable body found
 
