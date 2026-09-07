@@ -1,3 +1,5 @@
+
+
 # Email Tracking System
 
 A smart email processing system powered by LangGraph that automatically categorizes incoming emails, extracts job application details, and provides notifications for urgent messages. Features a Streamlit dashboard for interactive email management.
@@ -86,7 +88,10 @@ source .venv/bin/activate  # On Windows: .venv\Scripts\activate
 pip install -r requirements.txt
 ```
 
-3. Create a `.env` file with your email credentials:
+3. Configure the LLM model:
+By default, `config.py` is set to use `gemma3:latest` via Ollama. Ensure you have this model pulled locally (`ollama pull gemma3:latest`) or update `LLM_MODEL` and `LLM_PROVIDER` in `config.py` to match your environment.
+
+4. Create a `.env` file with your email credentials:
 ```
 IMAP_SERVER=imap.example.com
 EMAIL=your-email@example.com
@@ -94,7 +99,7 @@ PASSWORD=your-password
 OLLAMA_BASE_URL=http://localhost:11434  # If using Ollama
 ```
 
-4. Run the application:
+5. Run the application:
 
 - For CLI version:
 ```
